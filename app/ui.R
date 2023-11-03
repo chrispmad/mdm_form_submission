@@ -1,0 +1,126 @@
+
+library(shiny)
+library(bslib)
+library(shinyBS)
+
+
+bslibTooltip <- function(
+    id, title, placement = "bottom", trigger = "hover", options = NULL
+){
+  options = shinyBS:::buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
+  options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
+  bsTag <- tags$script(HTML(paste0("
+    $(document).ready(function() {
+      opts = $.extend(", options, ", {html: true});
+      setTimeout(function() {
+        $('#", id, "').tooltip('dispose').tooltip(opts);
+      }, 500)
+    });
+  ")))
+}
+
+
+#Mesocarnivore database -Scientists
+# Thank you for participating in the Mesocarnivore Distribution Modelling Project
+
+# Mesocarnivore database -Scientists
+# Thank you for participating in the Mesocarnivore Distribution Modelling Project
+
+sidebar = sidebar(
+  width = '20%',
+  h5("Templates"),
+  downloadButton('download_cam_template','Download Camera Data Template'),
+  downloadButton('download_dna_template','Download DNA Template'),
+  # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
+  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
+  actionButton(
+    'download_users_data',
+    'Collect Submissions'
+  )
+)
+
+main = div(
+  fluidRow(
+    bslib::card(
+    h5('Mesocarnivore database - Scientists'),
+    HTML("<br>"),
+    h5('Thank you for participating in the Mesocarnivore Distribution Modelling Project'),
+    style = 'background: url(fisher_background.jpg); 
+             background-size: cover;
+             background-position-y: -120px;
+             width: 80%; text-align:center;
+             color: white;
+             margin-left: 10%;
+             margin-right: 10%')),
+  fluidRow(
+    column(
+      width = 6, 
+      textInput('name_input','Name'),
+      textInput('proj_id_input','Project Name') |> 
+        tooltip(
+          'Unique name for the project. E.g., Enterprise Fisher Survey'
+        ),
+        textInput('survey_id_input','Survey ID') |> 
+          tooltip("The Survey level includes information on different surveys completed within the same Project or Study Area. In some cases, a Project or Study Area will consist of more than one type of Survey. E.g., Enterprise Fisher Survey - Camera 2023."),
+      textInput('study_area_input','Study Area')
+    ),
+    column(
+      width = 6,
+      textInput('email_input','Email'),
+      selectInput('focal_species_input','Focal Species',
+                    choices = c('Multispecies','Carnivores','Ungulates')) |> 
+        tooltip("focal_species_input-label", 
+          'A code indicating the target species of the project. Choose one option.'),
+        selectInput('privacy_options_input','Privacy Options',
+                    choices = c('Project scale use' = 'proj',
+                                'Secured [Managed as secured datasets within government data systems]' = 'secured',
+                                'Publicly accessible [Open data]' = 'public',
+                                'Other')) |> 
+          tooltip(HTML('<br>Only this project: The raw data will only be used for the purpose of distribution maps and modelling. 
+          No raw data will be published. <br>Government: Same as above but data can be stored in the government database where 
+          other departments can use it for secured projects with different objectives. The raw data will not be shared with
+          the public. <br>Public: The data will be accessible to the government and the public. 
+                  <br>Other: Please specify other limitations of data use in the box below.')),
+      textInput('other_security_input','Other Privay Details')
+    )
+  ),
+  fluidRow(
+    div(
+      fileInput('data_submission_input',label = 'Your Data', accept = c('.csv','.xlsx')),
+      p(HTML('Please upload your data (.csv, .xlsx). 
+      Use the template that corresponds to the data type you have. 
+      If you do not use our template, your data should at least include:
+      <br>• Project name: Unique ID that identifies the project. 
+      <br>• Type of record: This can be photographs, hair sampling, sightings, etc. 
+      <br>• Lat and Lon: Two columns with coordinates preferably in decimal degrees. 
+      <br>• Sampling effort: Two columns with the start date and end date of the survey. 
+      <br>• Date and time of the observation: Depending on the type of record only date might be available. 
+      <br>• Species name.')) |> htmltools::tagAppendAttributes(class = 'tips')
+    ),
+    actionButton('submit_form','Submit')
+  )
+)
+
+ui = page_sidebar(
+  tags$head(tags$style(
+    "body {
+    font-family: Arial, sans-serif;
+}
+
+.tips {
+  font-size: smaller;
+  margin-top: -1rem;
+}"
+  )),
+  shinyFeedback::useShinyFeedback(),
+  # includeCSS('www/my_style.css'),
+  # includeScript('www/my_js.js'),
+  sidebar = sidebar,
+  main
+)
+
+# Change p() to hover text.
+# Make sure that log book doesn't get updated (and success alert box) don't 
+#   show up when they submit a file that is not of .csv or .xlsx type.
+# Name data files with Sys.Time() and make sure there is a column in log_book
+#   with that name.
