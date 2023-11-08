@@ -8,6 +8,7 @@ sidebar = sidebar(
   h5("Templates"),
   downloadButton('download_cam_template','Download Camera Data Template'),
   downloadButton('download_dna_template','Download DNA Template'),
+  downloadButton('download_information','Download More information'),
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
   HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
   actionButton(
@@ -40,16 +41,15 @@ main = div(
         ),
         textInput('survey_id_input','Survey ID') |> 
           tooltip("The Survey level includes information on different surveys completed within the same Project or Study Area. In some cases, a Project or Study Area will consist of more than one type of Survey. E.g., Enterprise Fisher Survey - Camera 2023."),
-      textInput('study_area_input','Study Area')
+      textInput('study_area_input','Study Area')|> 
+        tooltip("The Study Area level includes information on unique research or monitoring areas that occurred within a Project. In some cases, a Project will consist of more than one Study Area. In those cases, the Study Area fields can be used to provide information about each unique area. The Project and Study Area will be the same in cases where only one area was surveyed. E.g., Enterprise.")
       #)
     ),
     column(
       width = 6,
       textInput('email_input','Email'),
-      selectInput('focal_species_input','Focal Species',
-                    choices = c('Multispecies','Carnivores','Ungulates')) |> 
-        tooltip("focal_species_input-label", 
-          'A code indicating the target species of the project. Choose one option.'),
+      textInput('focal_species_input','Focal Species') |> 
+        tooltip('Indicate the target species of the project. E.g. multispecies, medium carnivores, bear, badger'),
         selectInput('privacy_options_input','Privacy Options',
                     choices = c('Project scale use' = 'proj',
                                 'Secured [Managed as secured datasets within government data systems]' = 'secured',

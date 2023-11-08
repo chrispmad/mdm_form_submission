@@ -99,6 +99,16 @@ server <- function(input, output, session) {
       }
   )
   
+  output$download_information <- downloadHandler(
+    filename = function() {
+      "Mesocarnivore distribution project_WLRS.pdf"
+    },
+    content = function(file) {
+      file.copy(from = 'Mesocarnivore distribution project_WLRS.pdf',
+                to = file)    
+    }
+  )
+  
   observeEvent(input$submit_form, {
     
     log_book = openxlsx::read.xlsx('project_logbook.xlsx')
@@ -254,7 +264,7 @@ server <- function(input, output, session) {
       # paste0("user_data_download-", Sys.Date(), ".Rdata")
     },
     content = function(file) {
-      if(input$username_input == 'user' & input$password_input == 'pass'){
+      if(input$username_input == 'mesocarnivoresBC' & input$password_input == 'Lynxcanadensis'){
         
         # Read in most up-to-date log book.
         log_book = openxlsx::read.xlsx('project_logbook.xlsx') |> 
