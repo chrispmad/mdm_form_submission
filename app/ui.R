@@ -1,6 +1,7 @@
 
 library(shiny)
 library(bslib)
+library(shinythemes)
 
 sidebar = sidebar(
   width = '20%',
@@ -8,7 +9,7 @@ sidebar = sidebar(
   downloadButton('download_cam_template','Download Camera Data Template'),
   downloadButton('download_dna_template','Download DNA Template'),
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
-  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
+  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
   actionButton(
     'download_users_data',
     'Collect Submissions'
@@ -18,20 +19,20 @@ sidebar = sidebar(
 main = div(
   fluidRow(
     bslib::card(
-    h5('Mesocarnivore database - Scientists'),
-    HTML("<br>"),
-    h5('Thank you for participating in the Mesocarnivore Distribution Modelling Project'),
-    style = 'background: url(fisher_background.jpg); 
+    #h5('Mesocarnivore database - Scientists'),
+    HTML("<br><br><br><br><br><br><br><br>"),
+    #h5('Thank you for participating in the Mesocarnivore Distribution Modelling Project'),
+    style = 'background: url(Marten_name.jpg); 
              background-size: cover;
              background-position-y: -120px;
-             width: 80%; text-align:center;
+             width: 90%; text-align:center;
              color: white;
-             margin-left: 10%;
-             margin-right: 10%')),
+             margin-left: 5%;
+             margin-right: 5%')),
   fluidRow(
     column(
       width = 6, 
-      bslib::card(
+      #bslib::card(
       textInput('name_input','Name'),
       textInput('proj_id_input','Project Name') |> 
         tooltip(
@@ -40,7 +41,7 @@ main = div(
         textInput('survey_id_input','Survey ID') |> 
           tooltip("The Survey level includes information on different surveys completed within the same Project or Study Area. In some cases, a Project or Study Area will consist of more than one type of Survey. E.g., Enterprise Fisher Survey - Camera 2023."),
       textInput('study_area_input','Study Area')
-      )
+      #)
     ),
     column(
       width = 6,
@@ -80,12 +81,16 @@ main = div(
 )
 
 my_theme <- bs_theme(
-  primary = 'pink',
-  secondary = 'blue'
+  bg = 'white',
+  fg= "black",
+  #primary = 'pink',
+  secondary = '#d5d7db'
 )
 
+#my_theme <- shinytheme("cosmo")
+
 ui = page_sidebar(
-  title = "I'M A TITLE",
+  title = "Thank you for participating in the Mesocarnivore Distribution Modelling Project",
   theme = my_theme,
   tags$head(tags$style(
     "
