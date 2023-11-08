@@ -55,11 +55,10 @@ main = div(
                                 'Secured [Managed as secured datasets within government data systems]' = 'secured',
                                 'Publicly accessible [Open data]' = 'public',
                                 'Other')) |> 
-          tooltip(HTML('<br>Only this project: The raw data will only be used for the purpose of distribution maps and modelling. 
-          No raw data will be published. <br>Government: Same as above but data can be stored in the government database where 
-          other departments can use it for secured projects with different objectives. The raw data will not be shared with
-          the public. <br>Public: The data will be accessible to the government and the public. 
-                  <br>Other: Please specify other limitations of data use in the box below.')),
+          tooltip(HTML('<br>Project scale use: Raw contributed data will only be used for the purpose of distribution maps and modelling. Data will be used for this objective only and will not be shared outside of the Conservation Science Section of the Ministry of Water Land and Resource Stewardship (WLRS). 
+                       <br>Secured: Contributed data will be incorporated into provincial scale data systems but managed as secure proprietary data under the Species and Ecosystems Data and Information Security policy. <br>
+                       Publicly accessible: Contributed data will be incorporated into provincial scale data systems and managed as open data. Data will be publicly accessible. 
+                  <br>Other: Other options are possible, contact us if you want to develop a data information sharing agreement')),
       textInput('other_security_input','Other Privay Details')
     )
   ),
