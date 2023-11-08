@@ -1,30 +1,6 @@
 
 library(shiny)
 library(bslib)
-library(shinyBS)
-
-
-bslibTooltip <- function(
-    id, title, placement = "bottom", trigger = "hover", options = NULL
-){
-  options = shinyBS:::buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
-  options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
-  bsTag <- tags$script(HTML(paste0("
-    $(document).ready(function() {
-      opts = $.extend(", options, ", {html: true});
-      setTimeout(function() {
-        $('#", id, "').tooltip('dispose').tooltip(opts);
-      }, 500)
-    });
-  ")))
-}
-
-
-#Mesocarnivore database -Scientists
-# Thank you for participating in the Mesocarnivore Distribution Modelling Project
-
-# Mesocarnivore database -Scientists
-# Thank you for participating in the Mesocarnivore Distribution Modelling Project
 
 sidebar = sidebar(
   width = '20%',
@@ -55,6 +31,7 @@ main = div(
   fluidRow(
     column(
       width = 6, 
+      bslib::card(
       textInput('name_input','Name'),
       textInput('proj_id_input','Project Name') |> 
         tooltip(
@@ -63,6 +40,7 @@ main = div(
         textInput('survey_id_input','Survey ID') |> 
           tooltip("The Survey level includes information on different surveys completed within the same Project or Study Area. In some cases, a Project or Study Area will consist of more than one type of Survey. E.g., Enterprise Fisher Survey - Camera 2023."),
       textInput('study_area_input','Study Area')
+      )
     ),
     column(
       width = 6,
@@ -101,15 +79,18 @@ main = div(
   )
 )
 
-ui = page_sidebar(
-  tags$head(tags$style(
-    "body {
-    font-family: Arial, sans-serif;
-}
+my_theme <- bs_theme(
+  primary = 'pink',
+  secondary = 'blue'
+)
 
-.tips {
-  font-size: smaller;
-  margin-top: -1rem;
+ui = page_sidebar(
+  title = "I'M A TITLE",
+  theme = my_theme,
+  tags$head(tags$style(
+    "
+.body {
+    font-family: Arial, sans-serif;
 }"
   )),
   shinyFeedback::useShinyFeedback(),
