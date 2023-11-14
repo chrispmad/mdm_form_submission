@@ -5,12 +5,14 @@ library(shinythemes)
 
 sidebar = sidebar(
   width = '20%',
+  h6("*You have 10 minutes to complete this submission before the system times out*"),
+  HTML("<br>"),
   h5("Templates"),
   downloadButton('download_cam_template','Download Camera Data Template'),
   downloadButton('download_dna_template','Download DNA Template'),
   downloadButton('download_information','Download More information'),
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
-  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br>"),
+  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
   actionButton(
     'download_users_data',
     'Collect Submissions'
@@ -25,7 +27,7 @@ main = div(
     #h5('Thank you for participating in the Mesocarnivore Distribution Modelling Project'),
     style = 'background: url(Marten_name.jpg); 
              background-size: cover;
-             background-position-y: -120px;
+             background-position-y: -150px;
              width: 90%; text-align:center;
              color: white;
              margin-left: 5%;
