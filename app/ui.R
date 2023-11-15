@@ -12,7 +12,7 @@ sidebar = sidebar(
   downloadButton('download_dna_template','Download DNA Template'),
   downloadButton('download_information','Download More information'),
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
-  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br>"),
+  HTML("<br><br><br><br><br><br><br><br><br><br>"),
   h6("Reminder: BC Government staff and Wildlife Act Permit holders, where conditions require, must submit their data to SPI*"),tags$a(href="https://www2.gov.bc.ca/gov/content/environment/plants-animals-ecosystems/wildlife/wildlife-data-information/submit-wildlife-data-information", "Submit to SPI"),
   actionButton(
     'download_users_data',
