@@ -13,7 +13,7 @@ sidebar = sidebar(
   downloadButton('download_information','Download More information'),
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
   HTML("<br><br>"),
-  h6("When contacting the Province, your personal information is collected under section 26(e) of the Freedom of Information and Protection of Privacy Act, for the purpose of assessing submissions and responding to your enquiries. If you have any questions about the collection or use of this contact information, please contact us by emailing mesocarnivores@gov.bc.ca, or by mail at PO Box 9338 Stn Prov Govt, Victoria BC V8W 9M1, attn: Ecosystems Branch, Ministry of Water, Land and Resource Stewardship."),
+  p("When contacting the Province, your personal information is collected under section 26(e) of the Freedom of Information and Protection of Privacy Act, for the purpose of assessing submissions and responding to your enquiries. If you have any questions about the collection or use of this contact information, please contact us by emailing mesocarnivores@gov.bc.ca, or by mail at PO Box 9338 Stn Prov Govt, Victoria BC V8W 9M1, attn: Ecosystems Branch, Ministry of Water, Land and Resource Stewardship."),
   h6("Reminder: BC Government staff and Wildlife Act Permit holders, where conditions require, must submit their data to Provincial Data Systems (i.e. SPI)*"),tags$a(href="https://www2.gov.bc.ca/gov/content/environment/plants-animals-ecosystems/wildlife/wildlife-data-information/submit-wildlife-data-information", "Submit to Provincial Data Systems"),
   actionButton(
     'download_users_data',
