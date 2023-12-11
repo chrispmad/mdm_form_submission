@@ -2,6 +2,7 @@
 library(shiny)
 library(bslib)
 library(tidyverse)
+library(googledrive)
 
 server <- function(input, output, session) {
   
@@ -29,6 +30,21 @@ server <- function(input, output, session) {
       'project_logbook.xlsx'
     )
   }
+  
+  # Setting authentication options
+  options(
+    # if a token is found, use it.
+    garge_oauth_email = TRUE,
+    garge_oauth_cache = 'credentials/.secrets'
+  )
+  
+  googledrive::drive_auth(cache = "credentials/.secrets",
+                          email = 'mesocarnivoresbc@gmail.com')
+  
+  # browser()
+  # Read the log-book from the Google drive account.
+  googledrive::drive_download('MDM_Submitted_Data_Academics/project_logbook.xlsx', overwrite = T)
+  #  print('read in logbook.')
   
   # Open the project 'log-book'
   log_book = openxlsx::read.xlsx(
@@ -186,6 +202,12 @@ server <- function(input, output, session) {
     # new entry.
     openxlsx::write.xlsx(log_book, 'project_logbook.xlsx', overwrite = T)
     
+    # Update the project XLSX file on google drive.
+    drive_update(
+      'MDM_Submitted_Data_Academics/project_logbook.xlsx',
+      media = 'project_logbook.xlsx'
+    )
+    
     cat(paste0("\nJust updated excel logbook with row for ",input$proj_id_input))
     
     if(stringr::str_detect(input$data_submission_input$datapath,'.csv')){
@@ -195,6 +217,13 @@ server <- function(input, output, session) {
       
       # And write that file to our data folder, inside the app's www/ folder.
       readr::write_csv(content, paste0('data/',input$proj_id_input, '-',Sys.Date(),'.csv'))
+      
+      googledrive::drive_upload(
+        media = paste0('data/',input$proj_id_input, '-',Sys.Date(),'.csv'),
+        path = 'MDM_Submitted_Data_Academics', 
+        name = paste0(input$proj_id_input, '-',Sys.Date(),'.csv'),
+        overwrite = T
+      )
     }
     
     if(stringr::str_detect(input$data_submission_input$datapath,'.xls(x)?')){
@@ -202,6 +231,13 @@ server <- function(input, output, session) {
       file.copy(
         from = input$data_submission_input$datapath,
         to = paste0('data/',input$proj_id_input,'-',Sys.Date(),stringr::str_extract(input$data_submission_input$name,'.xls(x)?$'))
+      )
+      
+      googledrive::drive_upload(
+        media = paste0('data/',input$proj_id_input,'-',Sys.Date(),stringr::str_extract(input$data_submission_input$name,'.xls(x)?$')),
+        path = 'MDM_Submitted_Data_Academics', 
+        name = paste0('data/',input$proj_id_input,'-',Sys.Date(),stringr::str_extract(input$data_submission_input$name,'.xls(x)?$')),
+        overwrite = T
       )
       
     }
@@ -234,25 +270,25 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$download_users_data, {
-    showModal(
-      modalDialog(
-      title = 'Log-in Credentials',
-      fluidRow(
-        column(width = 6,
-               textInput('username_input',
-                         'Username')
-        ),
-        column(width = 6,
-               textInput('password_input',
-                         'Password'))
-      ),
-      fluidRow(
-        downloadButton('submit_login_creds',
-                     'Submit Log-in Credentials')
-      ))
-      )
-  })
+  # observeEvent(input$download_users_data, {
+  #   showModal(
+  #     modalDialog(
+  #     title = 'Log-in Credentials',
+  #     fluidRow(
+  #       column(width = 6,
+  #              textInput('username_input',
+  #                        'Username')
+  #       ),
+  #       column(width = 6,
+  #              textInput('password_input',
+  #                        'Password'))
+  #     ),
+  #     fluidRow(
+  #       downloadButton('submit_login_creds',
+  #                    'Submit Log-in Credentials')
+  #     ))
+  #     )
+  # })
   
   # Create a 'downloadHandler' - this allows the user to download
   # things from the Shiny app to their computer's download folder, 

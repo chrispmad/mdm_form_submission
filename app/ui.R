@@ -5,8 +5,7 @@ library(shinythemes)
 
 sidebar = sidebar(
   width = '20%',
-  h6("*You have 10 minutes to complete this submission before the system times out*"),
-  HTML("<br>"),
+  tags$a(href="https://mesocarnivores.shinyapps.io/Mesocarnivore_Data_Submission_Gov","Government employees or Wildlife Act Permit holders, click here"),
   h5("Templates"),
   downloadButton('download_cam_template','Download Camera Data Template'),
   downloadButton('download_dna_template','Download DNA Template'),
@@ -14,7 +13,7 @@ sidebar = sidebar(
   # h3("Mesocarnivore Biologist", style = 'text-align:center;'),
   HTML("<br><br>"),
   p("When contacting the Province, your personal information is collected under section 26(e) of the Freedom of Information and Protection of Privacy Act, for the purpose of assessing submissions and responding to your enquiries. If you have any questions about the collection or use of this contact information, please contact us by emailing mesocarnivores@gov.bc.ca, or by mail at PO Box 9338 Stn Prov Govt, Victoria BC V8W 9M1, attn: Ecosystems Branch, Ministry of Water, Land and Resource Stewardship."),
-  h6("Reminder: BC Government staff and Wildlife Act Permit holders, where conditions require, must submit their data to Provincial Data Systems (i.e. SPI)*"),tags$a(href="https://www2.gov.bc.ca/gov/content/environment/plants-animals-ecosystems/wildlife/wildlife-data-information/submit-wildlife-data-information", "Submit to Provincial Data Systems"),
+    h6("*You have 10 minutes to complete this submission before the system times out*"),
   actionButton(
     'download_users_data',
     'Collect Submissions'
@@ -93,7 +92,7 @@ my_theme <- bs_theme(
 #my_theme <- shinytheme("cosmo")
 
 ui = page_sidebar(
-  title = "Thank you for participating in the Mesocarnivore Distribution Modelling Project",
+  title = "Thank you for participating in the Mesocarnivore Distribution Modelling Project - Academics only",
   theme = my_theme,
   tags$head(tags$style(
     "
