@@ -26,9 +26,8 @@ main = div(
     #h5('Mesocarnivore database - Scientists'),
     HTML("<br><br><br><br><br><br><br><br>"),
     #h5('Thank you for participating in the Mesocarnivore Distribution Modelling Project'),
-    style = 'background: url(Marten_name.jpg); 
+    style = 'background: url(Marten_name_cropped.jpg); 
              background-size: cover;
-             background-position-y: -150px;
              width: 90%; text-align:center;
              color: white;
              margin-left: 5%;
